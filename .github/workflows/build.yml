@@ -1,1 +1,26 @@
-
+name: Build IPA
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate
+      - run: |
+          xcodebuild -project XSniper.xcodeproj -scheme XSniper -configuration Release \
+            -sdk iphoneos -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+      - run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/XSniper.app Payload/
+          zip -r XSniper.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: XSniper-ipa
+          path: ios/XSniper.ipa
