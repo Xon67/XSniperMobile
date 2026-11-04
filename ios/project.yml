@@ -1,0 +1,27 @@
+name: XSniper
+options:
+  bundleIdPrefix: com.xenon54
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  XSniper:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.xenon54.xsniper
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.0"
+        CODE_SIGNING_ALLOWED: "NO"
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: XSniper
+        UILaunchScreen: {}
+        UIBackgroundModes: [audio]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSLocalNetworkUsageDescription: XSniper talks to the XSniper server running on your PC over WiFi.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
